@@ -5,22 +5,24 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="static/css/main.css">
 </head>
-  <style type="text/css">
+<style type="text/css">
+  .heavy {
+    font: bold 30px sans-serif;
+  }
 
-  .heavy { font: bold 30px sans-serif; }
   #refresh-btn {
     float: right;
     font-size: 12px;
     border-radius: 0;
   }
+
   svg {
     font: 10px sans-serif;
   }
 
   .vizbackground {
     background-color: white;
-    height: 550px
-    width: 960px
+    height: 550px width: 960px
   }
 
   .axis path,
@@ -54,7 +56,7 @@
 
   .brush .extent {
     stroke: #fff;
-    fill-opacity: .125;
+    fill-opacity: .225;
     shape-rendering: crispEdges;
   }
 
@@ -95,27 +97,30 @@
             <ul class="side-nav">
               <li class="is-active"><span>Home</span></li>
               <li><span>Most Complained Companies</span></li>
-              <li><span>Company Products</span></li>
-              <li><span>Issues Complained</span></li>
+              <li><span>Company Products Breakdown</span></li>
+              <li><span>Issues Complained & Averages</span></li>
               <li><span>References</span></li>
             </ul>
           </nav>
           <ul class="l-main-content main-content">
             <li class="l-section section section--is-active">
               <div class="intro">
-                <div class="intro--banner">
-                  <h2>Your next<br>interactive<br>experience</h2> # Add text here!!
-                </div>
-                <div class="intro--options">
-                  <a href="#0">
-                    <h3>Metiew &amp; Smith</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p>
-                  </a>
-                  <a href="#0">
-                    <h3>Fantasy interactive</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p>
-                  </a>
-                </div>
+                <h2>About the Visualization</h2>
+                <p>
+                  This visualization is an interactive slideshow which helps the user explore the Consumer Complaints Database. The dataset holds more than a million records from 2014-2018 but I've only included records from 2016-2018, since there wasn't anything interesting
+                  back then. The dataset required a lot of data wrangling and scrubbing, for which I've used Pandas, the application actually generates data dynamically as you go trough the slides, so the first thing you have to do
+                  to get started is to select a time period you would like to explore on the first visualization.
+                  <br>
+                  <h4>Templates Scene</h4> Since I had to somehow make the Tableu visualizations on a hybrid structure, I opted for using the slideshow structure and start the user with the multiline-chart which allows him/her to select a time period, this time period is taken
+                  and the application generates two subsequent charts; a Stacked-Bar Chart and a pair of Donut-Charts at the end. The user is expected to scroll, or click on the left-hand side menu to move to the next visualization. They can come back to the first slide and make a different selection,
+                  which generates different data on the other charts.
+                  <br>
+                  <h4>Annotations</h4> All charts are titled properly to indicate what they are trying to show, outter text anotations are minimal, I've only added them on the first graph to help the user understand that the next graphs will be generated dynamically.
+                  All charts have tooltips, proper legends, and they also display current the time-period for which they are showing data. On the Stackedbar-graph you can see it on the Y axis, and on the Donut-charts you can see it on the legend, this anotation changes dynamically.
+                  <br>
+                  <h4>Parameters and Triggers</h4> The main trigger in the visualizations is when you make a time-period selection on the first chart, when this happens two API calls are made to filter data, wrangle it, and generate two new charts. This process happens in the background so there is no transition
+                  which the user can observe but in the background these are actually parameters being passed to the subsequent charts. The Donut-Charts at the end have subtle triggers that allow the user identify parts of the chart once they are clicked on.
+                </p>
               </div>
             </li>
             <li class="l-section section">
@@ -125,128 +130,78 @@
                   <div id='multilinetooltip' style='position:absolute;background-color:gray;padding:5px'></div>
                   <svg id='multilinechart'></svg>
                 </div>
+                <p>
+                  * Select a time-period, the next charts generate dynamically with your selection. Try those big spikes, see what they are about.
+                </p>
               </div>
             </li>
             <li class="l-section section">
               <div class="work">
-                <h2>Company Products</h2>
+                <h2>Company Products Breakdown</h2>
                 <div id='stackedbarchart' class="vizbackground">
                 </div>
             </li>
             <li class="l-section section">
               <div class="work">
-                <h2>Issues Complained</h2>
+                <h2>Issues Complained & Averages</h2>
                 <div id="donut-charts" class="vizbackground">
                 </div>
             </li>
             <li class="l-section section">
-              <div class="hire">
-                <h2>You want us to do</h2>
-                <!-- checkout formspree.io for easy form setup -->
-                <form class="work-request">
-                  <div class="work-request--options">
-                    <span class="options-a">
-                    <input id="opt-1" type="checkbox" value="app design">
-                    <label for="opt-1">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      App Design
-                    </label>
-                    <input id="opt-2" type="checkbox" value="graphic design">
-                    <label for="opt-2">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Graphic Design
-                    </label>
-                    <input id="opt-3" type="checkbox" value="motion design">
-                    <label for="opt-3">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Motion Design
-                    </label>
-                  </span>
-                    <span class="options-b">
-                    <input id="opt-4" type="checkbox" value="ux design">
-                    <label for="opt-4">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      UX Design
-                    </label>
-                    <input id="opt-5" type="checkbox" value="webdesign">
-                    <label for="opt-5">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Webdesign
-                    </label>
-                    <input id="opt-6" type="checkbox" value="marketing">
-                    <label for="opt-6">
-                      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 150 111" style="enable-background:new 0 0 150 111;" xml:space="preserve">
-                      <g transform="translate(0.000000,111.000000) scale(0.100000,-0.100000)">
-                        <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
-                      </g>
-                      </svg>
-                      Marketing
-                    </label>
-                  </span>
-                  </div>
-                  <div class="work-request--information">
-                    <div class="information-name">
-                      <input id="name" type="text" spellcheck="false">
-                      <label for="name">Name</label>
-                    </div>
-                    <div class="information-email">
-                      <input id="email" type="email" spellcheck="false">
-                      <label for="email">Email</label>
-                    </div>
-                  </div>
-                  <input type="submit" value="Send Request">
-                </form>
+              <div class="intro">
+                <h1>References and Resources</h1>
+                <h2>Github Project</h2>
+                <ul>
+                  <li><a href='https://github.com/maganaluis/CS498-DV-Project' target='_blank'>CS498-DV-Project</a></li>
+                </ul>
+                <h2>Dataset</h2>
+                <ul>
+                  <li><a href='https://catalog.data.gov/dataset/consumer-complaint-database' target='_blank'>Consumer Complaint Database</a></li>
+                </ul>
+                <h2>HTML Template</h2>
+                <ul>
+                  <li><a href='https://github.com/BuckyMaler/global' target='_blank'>Global: HTML5 website template</a></li>
+                </ul>
+                <h2>Multiline Chart</h2>
+                <ul>
+                  <li><a href='http://bl.ocks.org/natemiller/7dec148bb6aab897e561' target='_blank'>Multiple Line Climate Plot with Zoom</a></li>
+                  <li><a href='http://bl.ocks.org/ZJONSSON/3918369' target='_blank'>d3.legend example</a></li>
+                </ul>
+                <h2>Stacked Barchart</h2>
+                <ul>
+                  <li><a href='http://bl.ocks.org/mstanaland/6100713' target='_blank'>Stacked bar chart with tooltips</a></li>
+                </ul>
+                <h2>Donut Charts</h2>
+                <ul>
+                  <li><a href='http://bl.ocks.org/erichoco/6694616' target='_blank'>Interactive Donut Charts</a></li>
+                </ul>
+
+              </div>
               </div>
             </li>
           </ul>
           </div>
-          </div>
         </div>
-        <ul class="outer-nav">
-          <li class="is-active">Home</li>
-          <li><span>Most Complained Companies</span></li>
-          <li><span>Company Products</span></li>
-          <li><span>Issues Complained</span></li>
-          <li><span>References</span></li>
-        </ul>
       </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-      <script>
-        window.jQuery || document.write('<script src="static/js/vendor/jquery-2.2.4.min.js"><\/script>')
-      </script>
-      <script src="static/js/d3.js"></script>
-      <script src="static/js/d3.js"></script>
-      <script src="static/js/d3.legend.js"></script>
-      <script src="static/js/functions-min.js"></script>
-      <script src="static/js/multilinechart.js"></script>
-      <script src="static/js/stackedbarchart.js"></script>
-      <script src="static/js/donutcharts.js"></script>
+      <ul class="outer-nav">
+        <li class="is-active">Home</li>
+        <li><span>Most Complained Companies</span></li>
+        <li><span>Products Breakdown</span></li>
+        <li><span>Issues & Averages</span></li>
+        <li><span>References</span></li>
+      </ul>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+      window.jQuery || document.write('<script src="static/js/vendor/jquery-2.2.4.min.js"><\/script>')
+    </script>
+    <script src="static/js/d3.js"></script>
+    <script src="static/js/d3.js"></script>
+    <script src="static/js/d3.legend.js"></script>
+    <script src="static/js/functions-min.js"></script>
+    <script src="static/js/multilinechart.js"></script>
+    <script src="static/js/stackedbarchart.js"></script>
+    <script src="static/js/donutcharts.js"></script>
 </body>
 
 </html>

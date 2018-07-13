@@ -27,9 +27,14 @@ var xAxis = d3.svg.axis().scale(x).orient("bottom"),
   xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
   yAxis = d3.svg.axis().scale(y).orient("left");
 
+// https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Controls.md
 var brush = d3.svg.brush()
   .x(x2)
-  .on("brush", brush);
+  .on("brush", brush)
+  .on("brushend", function(){
+    createbarchart(x.domain());
+    createdonutcharts(x.domain());
+  });
 
 // Define the div for the tooltip
 var div = d3.select("#multilinetooltip")
@@ -76,7 +81,7 @@ var focus = svg.append("g")
 var context = svg.append("g")
   .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
-d3.csv("static/MostComplainedCompanies.csv", function(error, data) {
+d3.csv("static/data/MostComplainedCompanies.csv", function(error, data) {
 
   color.domain(d3.keys(data[0]).filter(function(key) {
     return key !== "Date received";
@@ -139,9 +144,13 @@ d3.csv("static/MostComplainedCompanies.csv", function(error, data) {
         return v.valcount;
       });
       var nameLen = d.name.length;
+      var coordinates = [0, 0];
+      coordinates = d3.mouse(this);
+      var x = coordinates[0];
+      var y = coordinates[1] + 120;
       div.html(d.name + "<br/>" + " Max: " + value)
-        .style("left", (d3.event.pageX - 172) + "px")
-        .style("top", (d3.event.pageY - 28) + "px");
+        .style("left", x + "px")
+        .style("top", y + "px");
     })
     .on("mouseout", function(d) {
       div.transition()
@@ -213,8 +222,6 @@ d3.csv("static/MostComplainedCompanies.csv", function(error, data) {
     .call(d3.legend)
 });
 
-var domainData;
-
 function brush() {
   x.domain(brush.empty() ? x2.domain() : brush.extent());
   focus.selectAll("path.line").attr("d", function(d) {
@@ -222,6 +229,4 @@ function brush() {
   });
   focus.select(".x.axis").call(xAxis);
   focus.select(".y.axis").call(yAxis);
-  createbarchart(x.domain());
-  createdonutcharts(x.domain());
 }

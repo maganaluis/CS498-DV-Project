@@ -36,7 +36,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/get_stackedbar_data', methods=['POST'])
+@app.route('/get_stackedbar_data', methods=['POST', 'GET'])
 def get_stackedbar_data():
     data = json.loads(request.data.decode("utf-8"))
     start = datetime.datetime.strptime(data['start'], '%Y-%m-%d')
@@ -67,4 +67,5 @@ def get_donutchart_data():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='10.0.0.27', port=5000)
+    # app.run(host='0.0.0.0', port=5000)
