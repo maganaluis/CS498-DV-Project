@@ -1,4 +1,4 @@
-# CS498-Data Visualization Project
+# Data Visualization Project
 
 ## Info:
 
